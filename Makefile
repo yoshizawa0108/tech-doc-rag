@@ -1,10 +1,16 @@
-.PHONY: freeze run ingest
-
-freeze:
-	pip-chill > requirements.txt
+.PHONY: run ingest test lint format
 
 run:
-	uvicorn app.main:app --reload
+	uv run uvicorn app.main:app --reload
 
 ingest:
-	python -m app.rag.ingest
+	uv run python -m app.rag.ingest
+
+test:
+	uv run pytest
+
+lint:
+	uv run ruff check .
+
+format:
+	uv run ruff format .
