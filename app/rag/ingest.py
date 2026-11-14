@@ -1,6 +1,8 @@
-from app.rag.chunk import split_text
 from pathlib import Path
-from app.rag.retrieve import get_embedding, collection
+
+from app.rag.chunk import split_text
+from app.rag.retrieve import collection, get_embedding
+
 
 def load_docs():
     docs_path = Path("docs")
@@ -16,11 +18,9 @@ def load_docs():
                 embeddings=[embedding],
                 documents=[chunk],
                 ids=[f"{file.stem}_{i}"],
-                metadatas=[{
-                    "file": file.name,
-                    "chunk_id": i
-                }]
+                metadatas=[{"file": file.name, "chunk_id": i}],
             )
+
 
 if __name__ == "__main__":
     load_docs()
