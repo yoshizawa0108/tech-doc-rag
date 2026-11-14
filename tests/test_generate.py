@@ -26,7 +26,7 @@ class FakeClient:
 def test_answer_returns_local_result(monkeypatch):
     fake_client = FakeClient(["JWTを使用します。"])
 
-    monkeypatch.setattr(generate, "client", fake_client)
+    monkeypatch.setattr(generate, "_get_client", lambda: fake_client)
     monkeypatch.setattr(
         generate,
         "search_docs",
@@ -66,7 +66,7 @@ def test_answer_falls_back_to_web_when_local_has_no_answer(monkeypatch):
         }
     ]
 
-    monkeypatch.setattr(generate, "client", fake_client)
+    monkeypatch.setattr(generate, "_get_client", lambda: fake_client)
     monkeypatch.setattr(
         generate,
         "search_docs",

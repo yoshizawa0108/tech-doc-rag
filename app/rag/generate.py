@@ -7,10 +7,15 @@ from app.rag.retrieve import search_docs
 
 load_dotenv()
 
-client = Groq(api_key=os.getenv("GROQ_API_KEY"))
+
+def _get_client() -> Groq:
+    """Groqクライアントを取得する。"""
+    return Groq(api_key=os.getenv("GROQ_API_KEY"))
 
 
 def answer(query: str) -> dict:
+    client = _get_client()
+
     retrieved = search_docs(query)
     context_text = "\n\n".join(retrieved["contexts"])
 
